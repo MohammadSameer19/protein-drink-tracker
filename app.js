@@ -13,20 +13,24 @@
       btnDrank: "I drank my protein",
       btnDrankUndo: "Undo",
       statusDone: "Protein done for today.",
-      statusNotDone: "Not yet today."
-      // TODO: add alt texts transaltions for images
-      /* altFlexed: "Protein drank today",
-      altWeak: "Protein not yet drank today" */
+      statusNotDone: "Not yet today.",
+      statusStreak: "day streak!"
     },
     fr: {
       title: "Suivi de Protéines",
       btnDrank: "J'ai bu ma protéine",
       btnDrankUndo: "Défaire",
       statusDone: "Protéine prise aujourd'hui.",
-      statusNotDone: "Pas encore aujourd'hui."
-      // TODO: add alt texts transaltions for images
-      /* altFlexed: "Protéine bue aujourd'hui",
-      altWeak: "Pas encore de protéine" */
+      statusNotDone: "Pas encore aujourd'hui.",
+      statusStreak: "jour(s) consécutif(s)!"
+    },
+    nl: {
+      title: "Eiwitdrank Tracker",
+      btnDrank: "Ik heb mijn eiwit gedronken",
+      btnDrankUndo: "Ongedaan maken",
+      statusDone: "Eiwit voor vandaag gedronken.",
+      statusNotDone: "Nog niet vandaag.",
+      statusStreak: "dag(en) op rij!"
     }
   };
 
@@ -57,7 +61,7 @@
 
   function formatDisplayDate(dateKey) {
     const d = parseDateKey(dateKey);
-    return d.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' });
+    return d.toLocaleDateString(currentLang, { weekday: 'long', month: 'short', day: 'numeric' });
   }
 
   function loadState() {
@@ -171,16 +175,7 @@
     if (streakEl) {
       const streak = getStreak();
       streakEl.textContent = streak > 0
-        ? (streak === 1 ? '1 day streak!' : streak + ' day streak!')
-        : '';
-    }
-    if (dateEl) {
-      dateEl.textContent = formatDisplayDate(dateKey);
-    }
-    if (streakEl) {
-      const streak = getStreak();
-      streakEl.textContent = streak > 0
-        ? (streak === 1 ? '1 day streak!' : streak + ' day streak!')
+        ? (streak === 1 ? `1 ${texts.statusStreak}` : `${streak} ${texts.statusStreak}`)
         : '';
     }
   }
