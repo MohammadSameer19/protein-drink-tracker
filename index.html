@@ -9,21 +9,42 @@
   <link rel="icon" href="icons/icon2.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
+  <script>
+    (function () {
+      const saved = localStorage.getItem('proteinTheme');
+      const theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 
 <body>
-  <main class="app">
-
-    <div class="language-picker">
-      <select id="lang-select">
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-        <!-- <option value="nl">Nederlands</option> -->
-      </select>
+  <header class="app-header">
+    <div class="header-left">
+      <h1 class="logo-text">Protein Drink Tracker</h1>
     </div>
 
-    <h1 id="app-title" class="title">Protein Drink Tracker</h1>
+    <div class="header-center">
+      <div id="main-clock" class="navbar-clock" aria-label="Current Local Time" aria-live="polite" aria-atomic="true">
+        <span class="clock-time" id="clock-time">--:--</span><span class="clock-seconds" id="clock-seconds">--</span>
+      </div>
+      <div id="main-clock-label" class="navbar-location"></div>
+    </div>
 
+    <div class="header-right">
+      <div class="language-picker" style="margin-right: 1rem;">
+        <select id="lang-select" aria-label="Select Language">
+          <option value="en">🇺🇸 EN</option>
+          <option value="fr">🇫🇷 FR</option>
+        </select>
+      </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+        🌙
+      </button>
+    </div>
+  </header>
+
+  <div class="main-content">
     <p id="date-text" class="date-text" aria-live="polite"></p>
 
     <div class="graphic-container" aria-hidden="true">
@@ -31,16 +52,21 @@
       <img id="arm-weak" class="graphic-img" src="images/not-drank.png" alt="Protein not yet drank today" />
     </div>
 
-    <p id="status-text" class="status"></p>
-
-    <p id="streak-text" class="streak-text" aria-live="polite"></p>
+    <div class="status-area">
+      <p id="status-text" class="status"></p>
+      <p id="streak-text" class="streak-text" aria-live="polite"></p>
+    </div>
 
     <button type="button" id="toggle-btn" class="toggle-btn" aria-pressed="false">
       I drank my protein
     </button>
 
-    <p id="last-time" class="last-time"></p>
-  </main>
+    <p id="last-time" class="last-time" style="font-size: 0.9rem; color: var(--text-muted); min-height: 1.2em;"></p>
+
+    <div id="world-clocks" class="world-clocks footer-clocks" aria-label="World Times">
+      <!-- Populated by JS -->
+    </div>
+  </div>
   <script src="app.js"></script>
 </body>
 
