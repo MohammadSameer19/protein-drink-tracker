@@ -20,7 +20,7 @@
 
 [data-theme="light"] {
   /* Light Theme Overrides */
-  --bg-gradient: #ffffff;
+  --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
   --text-main: #000000;
   --text-muted: #555555;
   --glass-bg: #f0f0f0;
@@ -63,6 +63,7 @@ body {
   justify-content: space-between;
   padding: 0.8rem 2rem;
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--shadow-color);
   box-shadow: 0 2px 10px var(--shadow-color);
@@ -381,5 +382,17 @@ body {
 
   .footer-clocks {
     display: none;
+  }
+}
+
+/* Respect user reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
